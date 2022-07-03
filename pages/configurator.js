@@ -5,60 +5,43 @@ import Image from 'next/image';
 import { Canvas } from '@react-three/fiber'
 import { useGLTF, PresentationControls, Environment, ContactShadows, Html } from '@react-three/drei'
 import { useRef } from 'react'
+import materialData from '../public/material-data.js';
 
 const Configurator = () => {
-    const [stadoMaterial, setEstadoMaterial] = React.useState("");
+    const [selectedMat, setSelectedMat] = React.useState("");
+
 
     return (
-        <div class="h-screen bg-slate-200">
+        <div className="h-screen bg-slate-200">
             <Navbar></Navbar>
-            <div class="h-[calc(100%-50px)] flex-col flex lg:flex-row">
-                <div class="bg-slate-300 h-1/4 lg:h-[calc(100%-50px)] lg:basis-1/4">
-                    <div class="h-[50px]">
+            <div className="h-[calc(100%-50px)] flex-col flex lg:flex-row">
+
+                <div className="bg-slate-300 h-1/4 lg:h-[calc(100%-50px)] lg:basis-1/4">
+                    <div className="h-[50px]">
                         <h3>Model list</h3>
                     </div>
-                    <div class="h-[calc(100%-50px)] lg:h-full">
-                        <div class="h-full flex flex-row  lg:grid gap-2 p-2 lg:grid-cols-2 overflow-auto bg-slate-600">
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
-                            <div class="h-full aspect-square bg-slate-200">Model item</div>
+                    <div className="h-[calc(100%-50px)] lg:h-full">
+                        <div className="h-full flex flex-row  lg:grid gap-2 p-2 lg:grid-cols-2 overflow-auto bg-slate-600">
+                            <div className="h-full aspect-square bg-slate-200">Model item</div>
                         </div> 
                     </div>                 
                 </div>
-                <div class="bg-slate-900 h-1/2 lg:h-full lg:basis-1/2">
+
+                <div className="bg-slate-900 h-1/2 lg:h-full lg:basis-1/2">
                     <Model></Model>
                 </div>
-                <div class="bg-slate-300 h-1/4 lg:h-[calc(100%-50px)] lg:basis-1/4">
-                    <div class="h-[50px]">
+
+                <div className="bg-slate-300 h-1/4 lg:h-[calc(100%-50px)] lg:basis-1/4">
+                    <div className="h-[50px]">
                         <h3>Material slider</h3>
                     </div>
-                    <div class="h-[calc(100%-50px)] lg:h-full">
-                        <div class="h-full flex flex-row lg:grid gap-2 p-2 lg:grid-cols-2 overflow-auto bg-slate-600">
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
-                            <MaterialItem></MaterialItem>
+                    <div className="h-[calc(100%-50px)] lg:h-full">
+                        <div className="h-full flex flex-row lg:grid gap-2 p-2 lg:grid-cols-2 overflow-auto bg-slate-600">
+                            {materialData.map(createMaterial)}
                         </div> 
                     </div>    
                 </div>
+
             </div>
         </div>
     )
@@ -66,9 +49,28 @@ const Configurator = () => {
 
 export default Configurator;
 
-    function MaterialItem() {
+    /* TODO: CHECK or DELETE
+    function MaterialSelector(props) {
+        const ref = useRef();
         return (
-            <div class="h-full w-full aspect-square bg-slate-50">
+            <group ref={ref} {...props} dispose={null}>
+                {data.map(MaterialItem)}
+            </group>
+        )
+    }*/
+
+    function createMaterial(material) {
+        return <MaterialItem
+            key={material.id}
+            color ={material.color}
+        />
+    }
+
+
+    function MaterialItem(props) {
+        console.log(props.color)
+        return (
+            <div className="h-full w-full aspect-square bg-slate-50">
                 <Canvas camera={{ position: [0, 0, 4], fov: 32}}>
                     <ambientLight intensity={0.1} />
                     <directionalLight color="white" position={[0, 0, 5]} />
@@ -78,7 +80,7 @@ export default Configurator;
                         }}
                     >
                         <sphereGeometry />
-                        <meshStandardMaterial />   
+                        <meshStandardMaterial color={props.color}/>   
                     </mesh>
                 </Canvas>
             </div>
