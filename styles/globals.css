@@ -18,3 +18,77 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.header01 {
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.header02 {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 47px;
+  display: flex;
+  align-items: center;
+}
+
+.header03 {
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+}
+
+.header04 {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.header05 {
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.header06 {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.paragraphReg {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.paragraphDet {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.dotted-bg {
+  background-image: -webkit-linear-gradient(-90deg,transparent 0%,transparent 50%, white 50%, white 100%),
+  -webkit-linear-gradient(  0deg, rgba(0,0,0,0.07) 0%, rgba(0,0,0,0.07) 50%, white 50%, white 100%);
+  background-size:1em 1em;
+}

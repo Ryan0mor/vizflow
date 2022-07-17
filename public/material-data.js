@@ -2,7 +2,7 @@ const materialData = [
     {
         id: 1,
         name: "Acabado de tipo 1",
-        color: "Yellow",
+        color: "hotpink",
         matid: "watch",
     },
     {
@@ -52,7 +52,20 @@ const materialData = [
         name: "Un acabado más",
         color: "Brown",
         matid: "watch",
+    },
+    { 
+        id: 10,
+        name: "Un acabado más",
+        color: "Brown",
+        matid: "watch",
+    },
+    { 
+        id: 11,
+        name: "Un acabado más",
+        color: "Brown",
+        matid: "watch",
     }
+
   ];
 
   export default materialData;

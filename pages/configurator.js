@@ -78,11 +78,11 @@ const Configurator = () => {
 
                 <div className="bg-slate-300 h-1/4 lg:h-[calc(100%-50px)] lg:basis-1/4">
                     <div className="h-[50px]">
-                        <h3>Model list</h3>
+                        <h3 className='header03'>Model list</h3>
                     </div>
                     <div className="h-[calc(100%-50px)] lg:h-full">
                         <div className="h-full flex flex-row  lg:grid gap-2 p-2 lg:grid-cols-2 overflow-auto bg-slate-600">
-                            <div className="h-full aspect-square bg-slate-200">Model item</div>
+                            <div className="h-full aspect-square bg-slate-200">Model item</div>                           
                         </div> 
                     </div>                 
                 </div>
@@ -93,7 +93,7 @@ const Configurator = () => {
 
                 <div className="bg-slate-300 h-1/4 lg:h-[calc(100%-50px)] lg:basis-1/4">
                     <div className="h-[50px]">
-                        <h3>Material slider</h3>
+                        <h3 className='header03'>Material slider</h3>
                     </div>
                     <div className="h-[calc(100%-50px)] lg:h-full">
                         <div className="h-full flex flex-row lg:grid gap-2 p-2 lg:grid-cols-2 overflow-auto bg-slate-600">

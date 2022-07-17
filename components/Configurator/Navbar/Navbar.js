@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const Navbar = () => {
   return (
-    <nav class="h-[50px] bg-slate-400">
+    <nav className="h-[50px] bg-slate-400">
         <menu>
             <Link href='/'>
                 Home
