@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar/Navbar.js';
+import Button from '../components/Button/Button.js';
 
 import { Canvas } from '@react-three/fiber'
 import { useGLTF, PresentationControls, Environment, ContactShadows } from '@react-three/drei'
@@ -76,11 +77,18 @@ const Browse = () => {
         )
     }
 
-    function Button(props) {
+    function IconCard(props) {
         return (
-            <button className='paragraphReg bg-slate-300 px-8 py-4 rounded-2xl'>
-                {props.content}
-            </button>
+            <div className='bg-slate-400 p-8 w-96 gap-2 flex flex-col'>
+                <Image
+                    src={props.url}
+                    alt="Picture of the author"
+                    width={500}
+                    height={500}
+                />
+                <h3 className='header03'>{props.title}</h3>
+                <p className='paragraphReg'>{props.body}</p>
+            </div>
         )
     }
     
@@ -97,8 +105,8 @@ const Browse = () => {
                             <h1 className='header01'>The ultimate archviz 3D content repository</h1>
                             <h2 className='header02'>Customizable 3D assets for architectural visualization proffesionals</h2>
                             <div className='flex flex-row gap-8'>
-                                <Button content='Log in'/>
-                                <Button content='Get started'/>
+                                <Button content='Log in' link='#'/>
+                                <Button content='Get started' link='#'/>
                             </div>
                         </div>
                         {/*Right*/}
@@ -130,8 +138,8 @@ const Browse = () => {
                             <h1 className='header01'>The ultimate archviz 3D content repository</h1>
                             <h2 className='header02'>Customizable 3D assets for architectural visualization proffesionals</h2>
                             <div className='flex flex-row gap-8'>
-                                <Button content='Log in'/>
-                                <Button content='Get started'/>
+                                <Button content='Log in' link='#'/>
+                                <Button content='Get started' link='#'/>
                             </div>
                         </div>
                         {/*Right*/}
@@ -180,8 +188,28 @@ const Browse = () => {
                 </div>
             </div>
 
-            <div>
-                
+            <div className='container grid grid-cols-1 hover:grid-cols-6 gap-8'>
+                <IconCard 
+                    url='/../public/images/test.jpg'
+                    title='VR / AR Ready' 
+                    body='dfgsdfgsdf gsd fg sedrfg sdf g'
+                    className=''
+                />
+                <IconCard 
+                    url='/../public/images/test.jpg'
+                    title='Game Ready' 
+                    body='dfgsdfgsdf gsd fg sedrfg sdf g'
+                />
+                <IconCard 
+                    url='/../public/images/test.jpg'
+                    title='Web Ready' 
+                    body='dfgsdfgsdf gsd fg sedrfg sdf g'
+                />
+                <IconCard 
+                    url='/../public/images/test.jpg'
+                    title='Low spec ready' 
+                    body='dfgsdfgsdf gsd fg sedrfg sdf g'
+                />
             </div>
             
 
