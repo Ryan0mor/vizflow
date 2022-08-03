@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link'
+
 import Navbar from '../components/Navbar/Navbar.js';
 import Button from '../components/Button/Button.js';
 
@@ -37,6 +39,28 @@ const Index = () => {
                     <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
                 </svg>
                 <h6>{props.categoryName}</h6>
+            </div>
+        )
+    }
+
+    function CategoryCard(props) {
+        return (
+            <div className='rounded-2xl border aspect-square pb-4 hover:shadow-lg hover:border-teal-400'>
+                <Link href='props.link'>
+                    <a>
+                        <div className='flex flex-col gap-4 item'>
+                            <Image
+                                className='rounded-2xl'
+                                src='/../public/images/augmented-reality-ready-icon-card.png'
+                                alt="Category picture"
+                                layout="responsive"
+                                width={300}
+                                height={265}
+                            />
+                            <h6 className='self-center header06'>{props.title} →</h6>
+                        </div> 
+                    </a>
+                </Link>                
             </div>
         )
     }
@@ -204,45 +228,35 @@ const Index = () => {
                         <IconTab categoryName='Outdoor'/>
                     </div>
                     <div className='grid lg:grid-cols-4 gap-4'>
-                        <IconCard 
-                            url='/../public/images/game-ready-icon-card.png'
-                            title='Game Ready' 
-                            body='Fully optimized assets for realtime workflows.'
+                        <CategoryCard 
+                            image='/../public/images/web-ready-icon-card.png'
+                            title='Chairs'
+                            url='/#'  
                         />
-                        <IconCard 
-                            url='/../public/images/virtual-reality-ready-icon-card.png'
-                            title='VR Ready' 
-                            body='Fully optimized assets for realtime workflows.'
+                        <CategoryCard 
+                            image='/../public/images/web-ready-icon-card.png'
+                            title='Chairs'
+                            url='/#'  
                         />
-                        <IconCard 
-                            url='/../public/images/augmented-reality-ready-icon-card.png'
-                            title='AR Ready' 
-                            body='Create fluid lightweight augmented reality solutions.'
+                        <CategoryCard 
+                            image='/../public/images/web-ready-icon-card.png'
+                            title='Chairs'
+                            url='/#'  
                         />
-                        <IconCard 
-                            url='/../public/images/web-ready-icon-card.png'
-                            title='Web Ready' 
-                            body='Easily bring 3d experiences to web browsers.'
+                        <CategoryCard 
+                            image='/../public/images/web-ready-icon-card.png'
+                            title='Chairs'
+                            url='/#'  
                         />
-                        <IconCard 
-                            url='/../public/images/game-ready-icon-card.png'
-                            title='Game Ready' 
-                            body='Fully optimized assets for realtime workflows.'
+                        <CategoryCard 
+                            image='/../public/images/web-ready-icon-card.png'
+                            title='Chairs'
+                            url='/#'  
                         />
-                        <IconCard 
-                            url='/../public/images/virtual-reality-ready-icon-card.png'
-                            title='VR Ready' 
-                            body='Fully optimized assets for realtime workflows.'
-                        />
-                        <IconCard 
-                            url='/../public/images/augmented-reality-ready-icon-card.png'
-                            title='AR Ready' 
-                            body='Create fluid lightweight augmented reality solutions.'
-                        />
-                        <IconCard 
-                            url='/../public/images/web-ready-icon-card.png'
-                            title='Web Ready' 
-                            body='Easily bring 3d experiences to web browsers.'
+                        <CategoryCard 
+                            image='/../public/images/web-ready-icon-card.png'
+                            title='Chairs'
+                            url='/#'  
                         />
                     </div>
                 </div>
