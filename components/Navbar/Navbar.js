@@ -52,19 +52,22 @@ const Navbar = () => {
     }
 
     return (
-        <nav className='drop-shadow-md bg-gradient-to-r from-slate-50 p-4 to-slate-100'>
+        <nav className='drop-shadow-md bg-white p-4'>
             <div className='container flex flex-wrap justify-between items-center mx-auto'>
                 <Logo/>
-                <div classHame='flex'>
+                <div className='flex'>
                     {linkData.map(createLink)}
                 </div>
                 
                 <div className='flex gap-6'>
-                    <Button content='Log in' link='#'></Button>
+                    <Button 
+                        content='Log in' 
+                        link='#'
+                        choice='2'/>
                     <Button 
                         content='Get started' 
                         link='#'
-                        choice='3'></Button>
+                        choice='3'/>
                 </div>
 
             </div>
