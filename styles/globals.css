@@ -168,12 +168,14 @@ a {
 }
 
 .back{
-  background-image: url("../public/images/back.jpg");
+  /*background-image: url("../public/images/back.jpg");*/
 
 }
 
 svg:hover {
-  fill: red;
+}
+
+path:hover {
 }
 
 .bgWrap {
