@@ -13,7 +13,7 @@ const Logo = () => {
             <a>
                 <div className='flex items-center gap-6'>
                     <Image
-                        src="/../public/images/test.jpg"
+                        src="/images/web-ready-icon-card.png"
                         alt="Vizflow logo"
                         width={40}
                         height={40}
