@@ -77,8 +77,8 @@ const Index = () => {
                             <h1 className='header01'>The ultimate archviz 3D content repository</h1>
                             <h2 className='header02'>Customizable 3D assets for architectural visualization proffesionals</h2>
                             <div className='flex flex-row gap-4'>
-                                <Button content='Log in' link='#'/>
-                                <Button content='Get started' link='#'/>
+                                <Button choice='3' content='More info' link='#'/>
+                                <Button choice='4' content='Get started' link='#'/>
                             </div>
                         </div>
                         {/*Right*/}

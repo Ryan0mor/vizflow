@@ -11,7 +11,7 @@ const Logo = (props) => {
     return (
         <Link href='/'>
             <a>
-                <div className='flex items-center gap-6'>
+                <div className='flex items-center gap-6 hover:opacity-60'>
                     { props.full == 'true' && 
                     <Image
                         src="/images/web-ready-icon-card.png"
@@ -23,7 +23,7 @@ const Logo = (props) => {
                     
                     <div>
                         <span className='header03 text-slate-400'>viz</span>
-                        <span className='header03 text-teal-500'>flow</span>
+                        <span className='header03 text-teal-400'>flow</span>
                     </div>                        
                 </div>
             </a>
