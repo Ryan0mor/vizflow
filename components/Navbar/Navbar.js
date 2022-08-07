@@ -9,19 +9,14 @@ const Navbar = () => {
 
     const linkData = [
         {
-            id: 1,
-            name: "Home",
-            link: "/",
-        },
-        {
             id: 2,
-            name: "Catalog",
-            link: "/catalog",
+            name: "Assets",
+            link: "/assets",
         },
         {
             id: 3,
             name: "Integrations",
-            link: "/integrations",
+            link: "/#integrations",
         },
         {
             id: 4,
@@ -46,16 +41,20 @@ const Navbar = () => {
     function LinkItem(props) {
         return (
             <Link href={props.link }>
-                <a className='p-4 hover:bg-violet-700 rounded-xl h-16'>{props.name}</a>
+                <a className='hover:text-teal-400 header06 '>
+                    <div className=''>
+                        {props.name}
+                    </div>
+                </a>
             </Link>
         )
     }
 
     return (
-        <nav className='drop-shadow-md bg-white p-4'>
+        <nav className='bg-white border-b border-slate-200 py-3'>
             <div className='container flex flex-wrap justify-between items-center mx-auto'>
-                <Logo full='true' />
-                <div className='flex'>
+                <Logo />
+                <div className='flex flex-row gap-8'>
                     {linkData.map(createLink)}
                 </div>
                 
@@ -63,11 +62,11 @@ const Navbar = () => {
                     <Button 
                         content='Log in' 
                         link='#'
-                        choice='2'/>
+                        choice='1'/>
                     <Button 
                         content='Get started' 
                         link='#'
-                        choice='3'/>
+                        choice='2'/>
                 </div>
 
             </div>
