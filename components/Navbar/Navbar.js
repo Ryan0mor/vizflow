@@ -54,7 +54,7 @@ const Navbar = () => {
     return (
         <nav className='drop-shadow-md bg-white p-4'>
             <div className='container flex flex-wrap justify-between items-center mx-auto'>
-                <Logo/>
+                <Logo full='true' />
                 <div className='flex'>
                     {linkData.map(createLink)}
                 </div>
