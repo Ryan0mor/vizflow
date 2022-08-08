@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar/Navbar.js';
 import Footer from '../components/Footer/Footer.js';
 import Button from '../components/Button/Button.js';
 import CategoriesBrowser from '../components/CategoriesBrowser/CategoriesBrowser.js'
+import ConfiguratorSample from '../components/ConfiguratorSample/ConfiguratorSample.js';
 
 import { Canvas } from '@react-three/fiber'
 import { useGLTF, PresentationControls, Environment, ContactShadows } from '@react-three/drei'
@@ -34,20 +35,6 @@ const Index = () => {
         )
     }
 
-    function WindowTab() {
-        return (
-            <div className='bg-slate-100 flex flex-row gap-2 rounded-t-2xl p-2 '>
-                <Dot />
-                <Dot />
-                <Dot />
-            </div>  
-        )
-    }
-
-    function Dot() {
-        return (<div className='h-4 w-4 rounded-full bg-slate-300' />)      
-    }
-
     function LogoCard(props) {
         return (
             <div className='rounded-2xl'>
@@ -71,9 +58,9 @@ const Index = () => {
             <div className=' gradient-bg'>
                 <div className='lg:py-24 bg-gradient-to-br from-slate-100'>
 
-                    <div className='lg:container mx-auto flex flex-col lg:flex-row gap-4'>
+                    <div className='lg:container mx-auto flex flex-col lg:flex-row gap-4 p-4 lg:p-0'>
                         {/*Left*/}
-                        <div className='z-50 lg:translate-x-20 rounded-2xl m-16 p-8 border lg:basis-1/2 shadow-lg flex flex-col gap-6 content-center bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 bg-slate-50'>
+                        <div className='z-50 lg:translate-x-20 rounded-2xl lg:m-16 p-8 border lg:basis-1/2 shadow-lg flex flex-col gap-6 content-center bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 bg-slate-50'>
                             <h1 className='header01'>The ultimate archviz 3D content repository</h1>
                             <h2 className='header02'>Customizable 3D assets for architectural visualization proffesionals</h2>
                             <div className='flex flex-row gap-4'>
@@ -82,19 +69,8 @@ const Index = () => {
                             </div>
                         </div>
                         {/*Right*/}
-                        <div className='lg:-translate-x-20 bg-slate-50 bg-opacity-80 border lg:basis-1/2 shadow-lg flex flex-col rounded-3xl  divide-y'>
-                                <WindowTab/>
-                                <div className='flex flex-row  '>
-                                    <div className=' lg:w-4/5'>
-                                        
-                                    </div>
-                                    <div className='lg:w-1/5'>
-                                            <div className='m-2 aspect-square bg-slate-300 rounded-full'></div>
-                                            <div className='m-2 aspect-square bg-slate-300 rounded-full'></div>
-                                            <div className='m-2 aspect-square bg-slate-300 rounded-full'></div>
-                                            <div className='m-2 aspect-square bg-slate-300 rounded-full'></div> 
-                                    </div>
-                                </div>
+                        <div className='lg:-translate-x-20 lg:basis-1/2'>
+                            <ConfiguratorSample />
                         </div>
                     </div>
                 </div>
@@ -113,15 +89,16 @@ const Index = () => {
                         body='Fully optimized assets for realtime workflows.'
                     />
                     <IconCard 
-                        url='/images/virtual-reality-ready-icon-card.png'
-                        title='VR Ready' 
-                        body='Fully optimized assets for realtime workflows.'
-                    />
-                    <IconCard 
                         url='/images/augmented-reality-ready-icon-card.png'
                         title='AR Ready' 
                         body='Create fluid lightweight augmented reality solutions.'
                     />
+                    <IconCard 
+                        url='/images/virtual-reality-ready-icon-card.png'
+                        title='VR Ready' 
+                        body='Fully optimized assets for realtime workflows.'
+                    />
+
                     <IconCard 
                         url='/images/web-ready-icon-card.png'
                         title='Web Ready' 
