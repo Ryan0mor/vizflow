@@ -7,11 +7,21 @@ import {useGLTF, PresentationControls, Environment, ContactShadows, OrbitControl
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 import { useRef } from 'react'
+import { proxy, useSnapshot } from "valtio"
 
 
 const ConfiguratorSample = () => {
 
-    const [selectedMat, setSelectedMat] = React.useState("");
+    
+    const state = proxy ({
+        mat01: "#000000",
+        mat02: "#000000",
+    })
+    /*
+    const anotherState = proxy ({
+        mat01: null,
+        mat02: null,
+    })*/
 
     function WindowTab() {
         return (
@@ -46,41 +56,62 @@ const ConfiguratorSample = () => {
         )
     }
 
-
     
 
-    function handleClick() {
-        
-    }
 
     function File(props) {
-
         const ref = useRef()
+        const snap = useSnapshot(state)
         const { nodes, materials } = useGLTF('/watch-v1.glb')
-        //setSelectedMat(materials.glass);
-        setSelectedMat(materials.watch);
+
+        //state.mat02 = "#c6ce00"
+        //anotherState.mat02 = materials.glass
         return (
-            <group ref={ref} {...props} dispose={null}>
-                <mesh geometry={nodes.Object005_glass_0.geometry} material={selectedMat}></mesh>
-                <mesh castShadow receiveShadow geometry={nodes.Object006_watch_0.geometry} material={selectedMat} />
+            <group 
+                ref={ref} 
+                {...props}
+                dispose={null}>
+                <mesh geometry={nodes.Object005_glass_0.geometry} material={materials.glass} material-color={state.mat01}/>
+                <mesh castShadow receiveShadow geometry={nodes.Object006_watch_0.geometry} material={materials.watch} material-color={state.mat02}/>
             </group>
         )
-      }
+    }
+
+    function ColorSelector (props) {
+        const snap = useSnapshot(state)
+        const color = props.color
+        return (
+            <div className='m-2 aspect-square bg-teal-400 rounded-full'
+                onClick={() => {
+                    console.log(color)
+                    state.mat02 = color
+                    state.mat01 = color}}>
+                    {snap.mat01}
+            </div>
+        )
+    }
+
+    function increase() {
+        console.log("efsdf")
+        state.mat01 = "#c6ce00"
+        state.mat02 = "#c6ce00"
+    }
 
     return (
         <div className='min-h-[400px] bg-slate-50 bg-opacity-80 border shadow-lg flex flex-col rounded-3xl divide-y'>
             <WindowTab/>
             <div className='flex flex-row'>
                 <div className='w-full lg:w-4/5'>
-                   <Model />
+                    <Model />
                 </div>
                 <div className='lg:w-1/5'>
-                        <div className='m-2 aspect-square bg-slate-300 rounded-full'></div>
-                        <div className='m-2 aspect-square bg-slate-300 rounded-full'></div>
-                        <div className='m-2 aspect-square bg-slate-300 rounded-full'></div>
-                        <div className='m-2 aspect-square bg-slate-300 rounded-full' onClick={handleClick()}></div> 
+                        <ColorSelector color='#c6ce00'/>
+                        <ColorSelector color='#ff0080'/>
+                        <ColorSelector color='#572364'/>
+                        <ColorSelector color='#67feff'/>
                 </div>
             </div>
+            <button onClick={increase}>+</button>
         </div>
     )
 }
