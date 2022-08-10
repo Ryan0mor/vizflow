@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 import { Canvas } from "@react-three/fiber";
@@ -12,16 +12,35 @@ import { proxy, useSnapshot } from "valtio"
 
 const ConfiguratorSample = () => {
 
+    const materials = [
+        {
+            id: 1,
+            color: "#ffffff",
+            image: "/images/web-ready-icon-card.png" 
+        },
+        {
+            id: 2,
+            color: "#A3E4D7",
+            image: "/images/web-ready-icon-card.png" 
+        },
+        {
+            id: 3,
+            color: "#F7DC6F",
+            image: "/images/web-ready-icon-card.png" 
+        },
+        {
+            id: 4,
+            color: "#3498DB",
+            image: "/images/web-ready-icon-card.png" 
+        },
+        
+    ]
+
     
     const state = proxy ({
-        mat01: "#000000",
-        mat02: "#000000",
+        mat01: "#ffffff",
+        mat02: "#ffffff",
     })
-    /*
-    const anotherState = proxy ({
-        mat01: null,
-        mat02: null,
-    })*/
 
     function WindowTab() {
         return (
@@ -64,8 +83,6 @@ const ConfiguratorSample = () => {
         const snap = useSnapshot(state)
         const { nodes, materials } = useGLTF('/watch-v1.glb')
 
-        //state.mat02 = "#c6ce00"
-        //anotherState.mat02 = materials.glass
         return (
             <group 
                 ref={ref} 
@@ -80,21 +97,42 @@ const ConfiguratorSample = () => {
     function ColorSelector (props) {
         const snap = useSnapshot(state)
         const color = props.color
-        return (
-            <div className='m-2 aspect-square bg-teal-400 rounded-full'
-                onClick={() => {
-                    console.log(color)
-                    state.mat02 = color
-                    state.mat01 = color}}>
-                    {snap.mat01}
-            </div>
-        )
-    }
 
-    function increase() {
-        console.log("efsdf")
-        state.mat01 = "#c6ce00"
-        state.mat02 = "#c6ce00"
+        if (color !== snap.mat01) {
+            return (
+                <div className='hover:scale-110 m-3 transition-all aspect-square bg-teal-400 rounded-full'
+                    onClick={() => {
+                        state.mat02 = color
+                        state.mat01 = color}}>
+                    <Image
+                        className='rounded-2xl'
+                        src={props.image}
+                        alt="Category picture"
+                        layout="responsive"
+                        width={200}
+                        height={200}
+                    /> 
+                </div>
+            )
+        } else {
+            return (
+                <div className='shadow-xl m-3 hover:scale-110 transition-all aspect-square rounded-full'
+                    onClick={() => {
+                        state.mat02 = color
+                        state.mat01 = color}} 
+                    >
+                        <Image
+                            className='rounded-2xl'
+                            src={props.image}
+                            alt="Category picture"
+                            layout="responsive"
+                            width={200}
+                            height={200}
+                        /> 
+                </div>
+            )
+        }
+        
     }
 
     return (
@@ -105,13 +143,17 @@ const ConfiguratorSample = () => {
                     <Model />
                 </div>
                 <div className='lg:w-1/5'>
-                        <ColorSelector color='#c6ce00'/>
-                        <ColorSelector color='#ff0080'/>
-                        <ColorSelector color='#572364'/>
-                        <ColorSelector color='#67feff'/>
+
+                    {materials.map((props) =>  (
+                            <ColorSelector 
+                                key={props.id}
+                                color={props.color}
+                                image={props.image}
+                            />
+                        )
+                    )}
                 </div>
             </div>
-            <button onClick={increase}>+</button>
         </div>
     )
 }
