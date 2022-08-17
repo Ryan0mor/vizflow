@@ -15,23 +15,19 @@ const ConfiguratorSample = () => {
     const materials = [
         {
             id: 1,
-            color: "#ffffff",
-            image: "/images/web-ready-icon-card.png" 
+            mat: '#ffffff',
         },
         {
             id: 2,
-            color: "#A3E4D7",
-            image: "/images/web-ready-icon-card.png" 
+            mat: '#a3a2b8',
         },
         {
             id: 3,
-            color: "#F7DC6F",
-            image: "/images/web-ready-icon-card.png" 
+            mat: '#f7dc6f',
         },
         {
             id: 4,
-            color: "#3498DB",
-            image: "/images/web-ready-icon-card.png" 
+            mat: '#f09c65',
         },
         
     ]
@@ -135,6 +131,20 @@ const ConfiguratorSample = () => {
         
     }
 
+    function MaterialCard (props) {
+        let snap = useSnapshot(state)
+        let color = String(props?.mat.toLowerCase())
+        let mat = 'cursor-pointer hover:scale-110 m-3 transition-all aspect-square rounded-full matShadows'
+        let currMat = 'cursor-pointer border-[8px] shadow-sm border-slate-200 m-3 transition-all aspect-square rounded-full matShadows'
+
+        return (
+            <div className={color !== snap.mat01 ? mat : currMat} style={{backgroundColor: color}} onClick={() => {
+                state.mat01 = color
+                state.mat02 = color
+            }}/>    
+        )
+    }
+
     return (
         <div className='min-h-[400px] bg-slate-50 bg-opacity-80 border shadow-lg flex flex-col rounded-3xl divide-y'>
             <WindowTab/>
@@ -145,10 +155,9 @@ const ConfiguratorSample = () => {
                 <div className='lg:w-1/5'>
 
                     {materials.map((props) =>  (
-                            <ColorSelector 
+                            <MaterialCard 
                                 key={props.id}
-                                color={props.color}
-                                image={props.image}
+                                mat={props.mat}
                             />
                         )
                     )}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter, Image } from 'next/router'
 import Error from 'next/error'
-import { Tabs } from '@mantine/core';
+import { Tabs, ScrollArea } from '@mantine/core';
 
 import { Canvas } from "@react-three/fiber";
 import {useGLTF, PresentationControls, Environment, ContactShadows, OrbitControls } from "@react-three/drei";
@@ -72,7 +72,8 @@ export default function AssetEntryPage() {
 
     function File(props) {
         const ref = useRef()
-        const { nodes, materials } = useGLTF(asset?.data?.contentTypeAsset?.file.url)
+        const snap = useSnapshot(state)
+        const { nodes, materials } = useGLTF(String(asset?.data?.contentTypeAsset?.file?.url))
 
         return (
             <group 
@@ -93,20 +94,17 @@ export default function AssetEntryPage() {
 
     const [activeTab, setActiveTab] = useState('first');
 
-    console.log(asset?.data?.contentTypeAsset)
-
     function MaterialCard (props) {
-
         let snap = useSnapshot(state)
-        let colorSimple = props?.mat
-        let colorFull = 'bg-[#3498DB]'
-        let matClassName = 'hover:scale-110 m-3 transition-all aspect-square rounded-full matShadows bg-[' + colorSimple + ']';
-        let test = 'bg-[' + colorSimple + ']';
-        
+        let color = String(props?.mat.toLowerCase())
+        let mat = 'cursor-pointer hover:m-1 m-3 transition-all aspect-square rounded-full matShadows'
+        let currMat = 'cursor-pointer border-[12px] shadow-sm border-slate-200 m-3 transition-all aspect-square rounded-full matShadows'
+
         return (
-            <div className={matClassName} >
-                <div className={test}>{colorSimple}</div>
-            </div>
+            <div className={color !== snap.mat01 ? mat : currMat} style={{backgroundColor: color}} onClick={() => {
+                state.mat01 = color
+                state.mat02 = color
+            }}/>    
         )
     }
 
@@ -143,15 +141,17 @@ export default function AssetEntryPage() {
                 </div>
 
                 {/*Material selector*/}
-                <div className='col-span-1 row-span-1 bg-slate-50'>
-                    <div className='grid lg:grid-cols-2 overflow-auto'>
-                        {asset?.data?.contentTypeAsset?.finishes?.map((mat) => (
-                            <MaterialCard
-                                key={mat} 
-                                mat={mat}/>
-                        ))}
+                <ScrollArea>
+                    <div className='col-span-1 row-span-1 bg-slate-50'>
+                        <div className='flex flex-row lg:grid lg:grid-cols-2 p-2'>
+                            {asset?.data?.contentTypeAsset?.finishes?.map((mat) => (
+                                <MaterialCard
+                                    key={mat} 
+                                    mat={mat}/>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </ScrollArea>
 
             </div>
         </div>
