@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter, Image } from 'next/router'
 import Error from 'next/error'
+import { Tabs } from '@mantine/core';
 
 import { Canvas } from "@react-three/fiber";
 import {useGLTF, PresentationControls, Environment, ContactShadows, OrbitControls } from "@react-three/drei";
 
-import { proxy } from "valtio"
+import { proxy, useSnapshot } from "valtio"
 
 const fetchAsset = (slug) => fetch('https://graphql.contentful.com/content/v1/spaces/' + process.env.NEXT_PUBLIC_SPACE_ID, {
     method: 'POST',
@@ -71,7 +72,7 @@ export default function AssetEntryPage() {
 
     function File(props) {
         const ref = useRef()
-        const { nodes, materials } = useGLTF(asset.data.contentTypeAsset?.file.url)
+        const { nodes, materials } = useGLTF(asset?.data?.contentTypeAsset?.file.url)
 
         return (
             <group 
@@ -84,25 +85,74 @@ export default function AssetEntryPage() {
         )
     }
 
-    console.log(asset)
 
     /*
     if(asset.data?.contentTypeAsset == null) {
         return <Error statusCode={404} />
     }*/
 
+    const [activeTab, setActiveTab] = useState('first');
+
+    console.log(asset?.data?.contentTypeAsset)
+
+    function MaterialCard (props) {
+
+        let snap = useSnapshot(state)
+        let colorSimple = props?.mat
+        let colorFull = 'bg-[#3498DB]'
+        let matClassName = 'hover:scale-110 m-3 transition-all aspect-square rounded-full matShadows bg-[' + colorSimple + ']';
+        let test = 'bg-[' + colorSimple + ']';
+        
+        return (
+            <div className={matClassName} >
+                <div className={test}>{colorSimple}</div>
+            </div>
+        )
+    }
+
     return (
-        <div>
-            <div className='flex flex-row'>
-                <div className='w-full lg:w-4/5'>
-                    <Model />
-                </div>
-                <div className='lg:w-1/5'>
-                <div className='lg:w-1/5'>
+        <div className="h-screen">
+            <div className='h-[48px] bg-slate-200'></div>
+            <div className='h-[calc(100%-48px)] grid lg:grid-cols-4 grid-cols-1 lg:grid-rows-1 grid-rows-4 divide-x-2 divide-slate-200'>
+                <div className='col-span-1 row-span-1'>
+                    
+                    <Tabs radius="md" orientation="vertical" defaultValue="gallery">
+                        <Tabs.List>
+                            <Tabs.Tab value="gallery">Gallery</Tabs.Tab>
+                            <Tabs.Tab value="messages">Messages</Tabs.Tab>
+                            <Tabs.Tab value="settings">Settings</Tabs.Tab>
+                        </Tabs.List>
+
+                        <Tabs.Panel value="gallery" pl="xs">
+                            Gallery tab content
+                        </Tabs.Panel>
+
+                        <Tabs.Panel value="messages" pl="xs">
+                            Messages tab content
+                        </Tabs.Panel>
+
+                        <Tabs.Panel value="settings" pl="xs">
+                            Settings tab content
+                        </Tabs.Panel>
+                    </Tabs>
 
                 </div>
-                    
+
+                <div className='lg:col-span-2 col-span-1 row-span-2' >
+                    <Model />
                 </div>
+
+                {/*Material selector*/}
+                <div className='col-span-1 row-span-1 bg-slate-50'>
+                    <div className='grid lg:grid-cols-2 overflow-auto'>
+                        {asset?.data?.contentTypeAsset?.finishes?.map((mat) => (
+                            <MaterialCard
+                                key={mat} 
+                                mat={mat}/>
+                        ))}
+                    </div>
+                </div>
+
             </div>
         </div>
     )
