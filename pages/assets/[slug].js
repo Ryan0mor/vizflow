@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter, Image } from 'next/router'
+import Link from 'next/link'
 import Error from 'next/error'
 import { Tabs, ScrollArea } from '@mantine/core';
-
+import { Carousel } from '@mantine/carousel';
+import SpaceIcon from '/components/Atoms/SpaceIcon.js';
 import { Canvas } from "@react-three/fiber";
 import {useGLTF, PresentationControls, Environment, ContactShadows, OrbitControls } from "@react-three/drei";
-
 import { proxy, useSnapshot } from "valtio"
 
 const fetchAsset = (slug) => fetch('https://graphql.contentful.com/content/v1/spaces/' + process.env.NEXT_PUBLIC_SPACE_ID, {
@@ -30,6 +31,58 @@ const fetchAsset = (slug) => fetch('https://graphql.contentful.com/content/v1/sp
     })
 })
 
+const fetchCatalog = () => fetch('https://graphql.contentful.com/content/v1/spaces/' + process.env.NEXT_PUBLIC_SPACE_ID, {
+    method: 'POST',
+    headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_ACCESS_TOKEN
+    },
+    body: JSON.stringify({
+        query:
+        `
+        {
+            spaceCollection(limit: 9) {
+              items {
+                slug
+                sys {
+                  id
+                }
+                name
+                categoriesCollection(limit: 15) {
+                  total
+                  items {
+                    sys {
+                      id
+                    }
+                    slug
+                    categoryName
+                    image {
+                      title
+                      url
+                    }
+                    linkedFrom {
+                      contentTypeAssetCollection(limit: 30) {
+                        items {
+                          sys {
+                            id
+                          }
+                          slug
+                          image {
+                            title
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `
+    })
+})
+
 export default function AssetEntryPage() {
     const [asset, setAsset] = useState([])
 
@@ -44,6 +97,14 @@ export default function AssetEntryPage() {
             .then((response) => response.json())
             .then((receivedData) => setAsset(receivedData))
     }, [slug])
+
+    useEffect(() => {
+        fetchCatalog()
+            .then((response) => response.json())
+            .then((receivedData) => setData(receivedData))
+    }, [])
+
+    const [apiData, setData] = useState([]);
 
 
     const state = proxy ({
@@ -92,8 +153,6 @@ export default function AssetEntryPage() {
         return <Error statusCode={404} />
     }*/
 
-    const [activeTab, setActiveTab] = useState('first');
-
     function MaterialCard (props) {
         let snap = useSnapshot(state)
         let color = String(props?.mat.toLowerCase())
@@ -108,33 +167,98 @@ export default function AssetEntryPage() {
         )
     }
 
+    const [activeTab, setActiveTab] = useState("Living room");
+
+    function TabListItem(props) {
+        let active = 'flex flex-col justify-center items-center gap-2 hover:text-indigo-500 text-indigo-500'
+        let unActive = 'flex flex-col justify-center items-center gap-2 hover:text-slate-400 text-slate-300'
+        return (
+            <Tabs.Tab value={props.name} className='flex flex-col justify-center items-center w-[85px]'>
+                <div className={props.name == activeTab ? active : unActive}>
+                    <SpaceIcon />
+                    <h6 className='whitespace-nowrap'>{props.name}</h6>
+                </div>
+            </Tabs.Tab>
+        )
+    }
+
+    function CategorySection(props) {
+        return (
+            <div className='flex flex-col gap-2 justify-center items-center text-center'>
+                <h3 className='header03 text-slate-600'>{props.data.categoryName}</h3>
+                <div className='grid grid-cols-2 gap-3'>
+                    {props.data.linkedFrom.contentTypeAssetCollection.items.map((asset) => (
+                        <AssetCard
+                            key={asset.sys?.id}
+                            data={asset}
+                        />
+                    ))}
+                </div>
+            </div>
+        )
+    }
+
+    function TabPanelItem(props) {
+        return (
+            <Tabs.Panel value={props.name}>
+                <ScrollArea>                    
+                        <div className='flex flex-col gap-10'>
+                            {props.list?.map((category) => (
+                                <CategorySection
+                                    key={category.sys.id}
+                                    data={category}
+                                />
+                            ))}
+                        </div>
+                </ScrollArea>
+            </Tabs.Panel>
+        )
+    }
+
+    function AssetCard(props) {
+        return (
+            <Link href={props.data.sys.id}>
+                <a>
+                    <div className=' bg-slate-100 border-slate-300 border-2 flex flex-col gap-2 aspect-square rounded-2xl transition hover:opacity-50'>
+                        <img className='rounded-2xl object-cover h-full' src={props.data.image.url} alt={props.data.image.title}/>
+                    </div>
+                </a>
+            </Link>
+        )
+    }
+
     return (
         <div className="h-screen">
             <div className='h-[48px] bg-slate-200'></div>
             <div className='h-[calc(100%-48px)] grid lg:grid-cols-4 grid-cols-1 lg:grid-rows-1 grid-rows-4 divide-x-2 divide-slate-200'>
-                <div className='col-span-1 row-span-1'>
-                    
-                    <Tabs radius="md" orientation="vertical" defaultValue="gallery">
-                        <Tabs.List>
-                            <Tabs.Tab value="gallery">Gallery</Tabs.Tab>
-                            <Tabs.Tab value="messages">Messages</Tabs.Tab>
-                            <Tabs.Tab value="settings">Settings</Tabs.Tab>
-                        </Tabs.List>
-
-                        <Tabs.Panel value="gallery" pl="xs">
-                            Gallery tab content
-                        </Tabs.Panel>
-
-                        <Tabs.Panel value="messages" pl="xs">
-                            Messages tab content
-                        </Tabs.Panel>
-
-                        <Tabs.Panel value="settings" pl="xs">
-                            Settings tab content
-                        </Tabs.Panel>
-                    </Tabs>
-
-                </div>
+                
+                {/*Asset browser*/}
+                <ScrollArea>
+                    <div className='col-span-1 row-span-1 h-full '>
+                        <Tabs radius="md" orientation="vertical" onTabChange={setActiveTab} defaultValue={"Living room"}>
+                            <Tabs.List>
+                                {apiData.data?.spaceCollection?.items.map((tab) => (
+                                    <TabListItem 
+                                        key={tab.sys.id}
+                                        name={tab.name}
+                                        slug={tab.slug}
+                                    />
+                                ))}
+                            </Tabs.List>
+                            <div className='bg-slate-50 p-3'>
+                                {apiData.data?.spaceCollection?.items.map((tab) => (
+                                    <TabPanelItem
+                                        key={tab.sys.id}
+                                        name={tab.name}
+                                        list={tab.categoriesCollection?.items}
+                                        slug={tab.slug}
+                                    />
+                                ))}
+                            </div>
+                            
+                        </Tabs>
+                    </div>            
+                </ScrollArea>
 
                 <div className='lg:col-span-2 col-span-1 row-span-2' >
                     <Model />

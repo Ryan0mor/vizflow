@@ -71,25 +71,16 @@ const Browse = () => {
     const [activeTab, setActiveTab] = useState("Living room")
 
     function TabListItem(props) {
-        if (props.name == activeTab) {            
-            return (
-                <Tabs.Tab value={props.name}>
-                    <div className='flex flex-col justify-center items-center gap-2 hover:text-indigo-500 text-indigo-500 w-[100px]'>
-                        <SpaceIcon />
-                        <h6 className='whitespace-nowrap'>{props.name}</h6>
-                    </div>
-                </Tabs.Tab>
-            )
-        }else{
-            return (
-                <Tabs.Tab value={props.name}>
-                    <div className='flex flex-col justify-center items-center gap-2 hover:text-slate-400 text-slate-300 w-[100px]'>
-                        <SpaceIcon />
-                        <h6 className='whitespace-nowrap'>{props.name}</h6>
-                    </div>
-                </Tabs.Tab>
-            )
-        }
+        let active = 'flex flex-col justify-center items-center gap-2 hover:text-indigo-500 text-indigo-500 w-[100px]'
+        let unActive = 'flex flex-col justify-center items-center gap-2 hover:text-slate-400 text-slate-300 w-[100px]'
+        return (
+            <Tabs.Tab value={props.name}>
+                <div className={props.name == activeTab ? active : unActive}>
+                    <SpaceIcon />
+                    <h6 className='whitespace-nowrap'>{props.name}</h6>
+                </div>
+            </Tabs.Tab>
+        )
     }
 
     function TabPanelItem(props) {
@@ -136,7 +127,7 @@ const Browse = () => {
     function AssetCard(props) {
         return (
             <Carousel.Slide>
-                <Link href={props.data.slug}>
+                <Link href={"assets/" + props.data.sys.id}>
                     <a>
                         <div className=' bg-slate-100 border-slate-300 border-2 flex flex-col gap-2 aspect-square rounded-2xl transition hover:opacity-50'>
                             <img className='rounded-2xl object-cover h-full' src={props.data.image.url} alt={props.data.image.title}/>
