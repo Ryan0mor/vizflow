@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const Actionbar = () => {
   return (
-    <div class= "bg-slate-200">
+    <div className= "bg-slate-200">
         <h2>Footer</h2>
     </div>
   )
