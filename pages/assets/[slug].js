@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import Error from 'next/error'
 import { Tabs, ScrollArea } from '@mantine/core';
 import SpaceIcon from '/components/Atoms/SpaceIcon.js';
