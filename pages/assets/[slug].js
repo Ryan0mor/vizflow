@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useRouter, Image } from 'next/router'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Error from 'next/error'
 import { Tabs, ScrollArea } from '@mantine/core';
-import { Carousel } from '@mantine/carousel';
 import SpaceIcon from '/components/Atoms/SpaceIcon.js';
 import { Canvas } from "@react-three/fiber";
 import {useGLTF, PresentationControls, Environment, ContactShadows, OrbitControls } from "@react-three/drei";
