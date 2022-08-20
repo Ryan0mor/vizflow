@@ -53,8 +53,8 @@ export default function Index() {
     <Layout>
       <HeroSection />
       <OptimizationSection />
-      <ImageSection 
-        align='left'
+      <ImageSection
+        height={600}
         url='/images/generic-interior-design-background.jpg'
         preTitle='Design'
         title='Create stunning 3d visualizations'

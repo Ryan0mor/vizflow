@@ -24,7 +24,7 @@ export default function LogoSection () {
           <h4 className='header04 text-pink-500'>Integrations</h4>
           <h2 className='header03'>One content lybrary to fit all workflows</h2>
         </div>
-        <div className='grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-10 '>
+        <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-10 '>
           <LogoCard url='/images/logos/logo-unity.jpg'/>
           <LogoCard url='/images/logos/logo-unreal.jpg'/>
           <LogoCard url='/images/logos/logo-blender.jpg'/>

@@ -13,7 +13,7 @@ export default function OptimizationSection () {
           width={290}
           height={165}
         />
-        <div className=' flex flex-col gap-4 px-8 pb-8'>
+        <div className=' flex flex-col gap-4 px-4 pb-4'>
           <h3 className='header03 text-slate-700'>{props.title}</h3>
           <p className='paragraphReg'>{props.body}</p>
         </div>
@@ -27,7 +27,7 @@ export default function OptimizationSection () {
         <p className='text-teal-400 header04'>Optimization</p>
         <h2 className='header03'>Future ready assets</h2>
       </div>
-      <div className=' grid grid-cols-2 lg:grid-cols-4 gap-8'>
+      <div className=' grid grid-cols-2 lg:grid-cols-4 gap-4 px-4'>
         <IconCard 
           url='/images/game-ready-icon-card.png'
           title='Game Ready' 
