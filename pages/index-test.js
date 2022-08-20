@@ -1,20 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link'
 
 import Navbar from '../components/Navbar/Navbar.js';
 import Footer from '../components/Footer/Footer.js';
 import Button from '../components/Button/Button.js';
 import CategoriesBrowser from '../components/CategoriesBrowser/CategoriesBrowser.js'
-import ConfiguratorSample from '../components/ConfiguratorSample/ConfiguratorSample.js';
-
-import { Canvas } from '@react-three/fiber'
-import { useGLTF, PresentationControls, Environment, ContactShadows } from '@react-three/drei'
-import { useRef } from 'react'
-import materialData from '../public/material-data.js';
+import ConfiguratorSample from '../components/ConfiguratorSample.js';
 
 import Image from 'next/image'
 
+const fetchSpaces = () => fetch('https://graphql.contentful.com/content/v1/spaces/' + process.env.NEXT_PUBLIC_SPACE_ID, {
+    method: 'POST',
+    headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_ACCESS_TOKEN
+    },
+    body: JSON.stringify({
+        query:
+        `
+            {
+                spaceCollection {
+                    items {
+                        name
+                    }
+                }
+            }
+        `
+    })
+})
+
 const Index = () => {
+    
+
+    useEffect(() => {
+        fetchSpaces()
+            .then((response) => response.json())
+            .then((data) => console.log(data.data.spaceCollection.items[0].name))
+    }, [])
+
 
     function IconCard(props) {
         return (
@@ -109,7 +132,7 @@ const Index = () => {
             </div>
 
             {/* Design section */}
-            <div className='py-36 bg-fixed bg-[url("https://www.domingoloro.com/images/portfolio_2/render-3d-espacio-interior-domingo-loro.jpg")]'>
+            <div className='py-36 bg-center bg-[url("https://www.domingoloro.com/images/portfolio_2/render-3d-espacio-interior-domingo-loro.jpg")]'>
                 <div className='container mx-auto grid grid-cols-12'>
                     <div className='backdrop-filter backdrop-blur-sm bg-opacity-40 bg-slate-50 border rounded-2xl px-12 py-16 col-start-1 md:col-end-8 lg:col-end-5 flex flex-col gap-4'>
                         <h5 className='header04 text-purple-500'>Design</h5>
