@@ -76,7 +76,7 @@ const Browse = () => {
         return (
             <Tabs.Tab value={props.name}>
                 <div className={props.name == activeTab ? active : unActive}>
-                    <SpaceIcon />
+                    <SpaceIcon type={props.name}/>
                     <h6 className='whitespace-nowrap'>{props.name}</h6>
                 </div>
             </Tabs.Tab>

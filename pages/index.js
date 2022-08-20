@@ -6,34 +6,7 @@ import LogoSection from '../components/Index/LogoSection.js'
 import OptimizationSection from '../components/Index/OptimizationSection';
 import ImageSection from '../components/ImageSection';
 
-const fetchSpaces = () => fetch('https://graphql.contentful.com/content/v1/spaces/' + process.env.NEXT_PUBLIC_SPACE_ID, {
-  method: 'POST',
-  headers: {
-    'Content-type': 'application/json',
-    Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_ACCESS_TOKEN
-  },
-  body: JSON.stringify({
-    query:
-    `
-      {
-        spaceCollection {
-          items {
-            name
-          }
-        }
-      }
-    `
-  })
-})
-
 export default function Index() {
-    
-  useEffect(() => {
-      fetchSpaces()
-          .then((response) => response.json())
-          .then((data) => console.log(data.data.spaceCollection.items[0].name))
-  }, [])
-
   function CatalogSection () {
     return (
       <div className=''>
@@ -48,7 +21,6 @@ export default function Index() {
     )
   }
   
-
   return (
     <Layout>
       <HeroSection />
