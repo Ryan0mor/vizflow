@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Link from 'next/link'
-import Navbar from '../components/Navbar/Navbar.js';
-import Footer from '../components/Footer/Footer.js';
+import Layout from '../components/Layout';
 import SpaceIcon from '../components/Atoms/SpaceIcon.js';
 import { Tabs } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
@@ -134,13 +133,12 @@ export default function Browse () {
       </Carousel.Slide>
     )
   }
-  
+
   return (
-    <div>
-      <Navbar></Navbar>
-      <div className='container mx-auto py-10'>
+    <Layout>
+      <div className='container mx-auto py-10 px-4'>
         <Tabs value={activeTab} onTabChange={setActiveTab} unstyled>
-          <Tabs.List className='flex flex-row justify-center'>
+          <Tabs.List className='flex flex-row overflow-scroll lg:overflow-auto justify-start lg:justify-center py-4'>
             {apiData.data?.spaceCollection?.items.map((tab) => (
               <TabListItem 
                 key={tab.sys.id}
@@ -159,7 +157,6 @@ export default function Browse () {
           ))}
         </Tabs>
       </div>
-      <Footer/>
-    </div>
+    </Layout>
   )
 }
