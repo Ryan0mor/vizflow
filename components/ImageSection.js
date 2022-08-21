@@ -2,12 +2,15 @@ import Image from 'next/image'
 
 export default function ImageSection (props) {
   let height = props.height
+  let containerStyle = 'relative flex flex-col h-[' + height + 'px]'
   return (
-    <div className='relative flex flex-col h-[800px]'>
+    <div className={containerStyle}>
       <Image
         alt="Background image"
         src={props.url}
-        layout="fill"
+        layout="responsive"
+        width={1440}
+        height={height}
         objectFit="cover"
         quality={75}
       />
@@ -16,7 +19,7 @@ export default function ImageSection (props) {
           <div className='backdrop-filter backdrop-blur-sm bg-opacity-40 bg-slate-50 border rounded-2xl p-8 lg:p-16 col-start-1 col-end-13 lg:col-start-2 lg:col-end-7 flex flex-col gap-4'>
             <h5 className='header04 text-purple-500'>{props.preTitle}</h5>
             <h2 className='header02'>{props.title}</h2>
-            <p className='paragraph'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <p className='paragraph'>{props.body}</p>
           </div>
         </div>
       </div>

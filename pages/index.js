@@ -26,11 +26,11 @@ export default function Index() {
       <HeroSection />
       <OptimizationSection />
       <ImageSection
-        height={600}
+        height={400}
         url='/images/generic-interior-design-background.jpg'
         preTitle='Design'
         title='Create stunning 3d visualizations'
-        body='At your disposal a collection of 3d assets re'
+        body='At your disposal a collection of 3d assets carefully made by 3d professionals and optimized for architectural visualization workflows.'
       />
       <LogoSection />
       <CatalogSection />

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Link from 'next/link'
 import Layout from '../components/Layout';
 import SpaceIcon from '../components/Atoms/SpaceIcon.js';
+import ImageSection from '../components/ImageSection';
 import { Tabs } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 
@@ -136,6 +137,13 @@ export default function Browse () {
 
   return (
     <Layout>
+      <ImageSection
+        height={400}
+        url='/images/generic-interior-design-background.jpg'
+        preTitle='Catalog'
+        title='Hundreds of 3d assets in one place'
+        body='Browse assets through different spaces and categories.'
+      />
       <div className='container mx-auto py-10 px-4'>
         <Tabs value={activeTab} onTabChange={setActiveTab} unstyled>
           <Tabs.List className='flex flex-row overflow-scroll lg:overflow-auto justify-start lg:justify-center py-4'>
