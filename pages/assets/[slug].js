@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Error from 'next/error'
 import { Tabs, ScrollArea } from '@mantine/core'
 import SpaceIcon from '/components/Atoms/SpaceIcon.js'
-import Navbar from '/components/Navbar/Navbar.js'
+import NavbarConfigurator from '/components/Navbar/NavbarConfigurator.js'
 import { Canvas } from "@react-three/fiber"
 import {useGLTF, PresentationControls, Environment, ContactShadows, OrbitControls } from "@react-three/drei"
 import { proxy, useSnapshot } from "valtio"
@@ -149,8 +149,8 @@ export default function AssetEntryPage() {
   function MaterialCard (props) {
     let snap = useSnapshot(state)
     let color = String(props?.mat.toLowerCase())
-    let mat = 'cursor-pointer hover:m-1 m-3 transition-all aspect-square rounded-full matShadows'
-    let currMat = 'cursor-pointer border-[12px] shadow-sm border-slate-200 m-3 transition-all aspect-square rounded-full matShadows'
+    let mat = 'cursor-pointer hover:m-0 m-2 transition-all aspect-square rounded-full matShadows'
+    let currMat = 'cursor-pointer border-8 shadow-sm border-slate-200 m-2 transition-all aspect-square rounded-full matShadows'
     return (
       <div className={color !== snap.mat01 ? mat : currMat} style={{backgroundColor: color}} onClick={() => {
         state.mat01 = color
@@ -158,9 +158,11 @@ export default function AssetEntryPage() {
       }}/>    
     )
   }
+
   const [activeTab, setActiveTab] = useState("Living room");
+
   function TabListItem(props) {
-    let active = 'w-14 lg:w-24 flex flex-col justify-center items-center gap-2 hover:text-indigo-500 text-indigo-500 border-indigo-500 lg:border-r-4 lg:border-b-0 border-b-4'
+    let active = 'w-14 lg:w-24 flex flex-col justify-center items-center gap-2 hover:text-indigo-500 text-indigo-500'
     let unActive = 'w-14 lg:w-24 flex flex-col justify-center items-center gap-2 hover:text-slate-400 text-slate-300'
     return (
       <Tabs.Tab value={props.name} className={props.name == activeTab ? active : unActive}>
@@ -189,17 +191,15 @@ export default function AssetEntryPage() {
 
   function TabPanelItem(props) {
     return (
-      <Tabs.Panel value={props.name}>
-        <ScrollArea>                    
-          <div className='flex lg:flex-col flex-row gap-8'>
-            {props.list?.map((category) => (
-              <CategorySection
-                key={category.sys.id}
-                data={category}
-              />
-            ))}
-          </div>
-        </ScrollArea>
+      <Tabs.Panel className='bg-slate-50 w-full p-4' value={props.name}>
+        <div className='flex lg:flex-col flex-row gap-8 h-full'>
+          {props.list?.map((category) => (
+            <CategorySection
+              key={category.sys.id}
+              data={category}
+            />
+          ))}
+        </div>
       </Tabs.Panel>
     )
   }
@@ -208,7 +208,7 @@ export default function AssetEntryPage() {
     return (
       <Link href={props.data.sys.id}>
         <a>
-          <div className=' bg-slate-100 border-slate-300 border-2 flex flex-col gap-2 aspect-square rounded-2xl transition hover:opacity-50'>
+          <div className=' bg-slate-100 border-slate-300 border-2 aspect-square rounded-2xl transition hover:opacity-50'>
             <img className='rounded-2xl object-cover h-full' src={props.data.image.url} alt={props.data.image.title}/>
           </div>
         </a>
@@ -218,13 +218,12 @@ export default function AssetEntryPage() {
 
   return (
     <div className='h-screen'>
-      <Navbar type='configurator' />
-      <div className='lg:grid-cols-12 grid-rows-6 h-[calc(100%-64px)] grid grid-cols-1 lg:grid-rows-1 divide-x-2 divide-slate-200'>
-        
+      <NavbarConfigurator file={asset?.data?.contentTypeAsset?.file?.url} />
+      <div className='lg:grid-cols-12 grid-rows-4 h-[calc(100%-64px)] grid grid-cols-1 lg:grid-rows-1 divide-1 divide-slate-200'>
         {/*Asset browser*/}
-        <ScrollArea className='lg:col-span-4 row-span-2'>
-          <Tabs className='flex lg:flex-row flex-col ' radius="md" onTabChange={setActiveTab} defaultValue={"Living room"} unstyled>
-            <Tabs.List className='flex flex-row lg:flex-col lg:gap-6 gap-2'>
+        <ScrollArea className='lg:col-span-4 hidden lg:flex divide-1 divide-slate-200'>
+          <Tabs className='flex lg:flex-row flex-col' radius="md" onTabChange={setActiveTab} defaultValue={"Living room"} unstyled>
+            <Tabs.List className='flex flex-row lg:flex-col lg:gap-6 gap-2 py-4'>
               {apiData.data?.spaceCollection?.items.map((tab) => (
                 <TabListItem 
                   key={tab.sys.id}
@@ -233,16 +232,14 @@ export default function AssetEntryPage() {
                 />
               ))}
             </Tabs.List>
-            <div className='bg-slate-50 w-full p-3'>
-              {apiData.data?.spaceCollection?.items.map((tab) => (
-                <TabPanelItem
-                  key={tab.sys.id}
-                  name={tab.name}
-                  list={tab.categoriesCollection?.items}
-                  slug={tab.slug}
-                />
-              ))}
-            </div>
+            {apiData.data?.spaceCollection?.items.map((tab) => (
+              <TabPanelItem
+                key={tab.sys.id}
+                name={tab.name}
+                list={tab.categoriesCollection?.items}
+                slug={tab.slug}
+              />
+            ))}
           </Tabs>           
         </ScrollArea>
 
@@ -251,15 +248,16 @@ export default function AssetEntryPage() {
         </div>
 
         {/*Material selector*/}
-        <ScrollArea className='lg:col-span-2 row-span-1 bg-slate-50'>
-          <div className='h-full flex flex-row lg:grid lg:grid-cols-2 p-2'>
+        <div className="h-full col-span-2 row-span-1 bg-slate-50 p-2">
+          <div className="h-full lg:h-auto flex flex-row lg:grid lg:grid-cols-2 justify-start overflow-auto">
             {asset?.data?.contentTypeAsset?.finishes?.map((mat) => (
               <MaterialCard
                 key={mat} 
                 mat={mat}/>
             ))}
-          </div>
-        </ScrollArea>
+            
+          </div> 
+        </div>
       </div>
     </div>
   )

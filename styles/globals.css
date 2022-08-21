@@ -190,3 +190,24 @@ path:hover {
   -webkit-box-shadow: inset 10px 10px 25px 10px rgba(255,255,255,0.5), inset -10px -10px 25px 10px rgba(0,0,0,0.5); 
   box-shadow: inset 10px 10px 25px 10px rgba(255,255,255,0.5), inset -10px -10px 25px 10px rgba(0,0,0,0.5);
 }
+
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #bcbdbe #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #bcbdbe;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
