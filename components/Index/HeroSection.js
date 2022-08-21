@@ -16,7 +16,7 @@ export default function HeroSection () {
             </div>
           </div>
           {/*Right*/}
-          <div className='lg:-translate-x-20 lg:basis-1/2'>
+          <div className='lg:-translate-x-20 lg:basis-1/2 flex flex-col justify-center'>
               <ConfiguratorSample />
           </div>
         </div>
