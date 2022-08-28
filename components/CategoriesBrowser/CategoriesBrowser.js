@@ -75,7 +75,7 @@ export default function CategoriesBrowser () {
               key={group.sys?.id}
               name={group.categoryName}
               image={group.image}
-              slug={group.slug}
+              slug={group.sys?.id}
             />
           ))}
         </div>  
@@ -84,10 +84,9 @@ export default function CategoriesBrowser () {
   }
 
   function CategoryGroup(props) {
-    console.log(props.image)
     return (
       <div className='rounded-2xl border aspect-square pb-4 hover:shadow-md hover:text-teal-400 hover:border-teal-400'>
-        <Link href={props.slug}>
+        <Link href={"categories/"  + props.slug}>
           <a>
             <div className='flex flex-col items-stretch gap-4'>
               <Image
