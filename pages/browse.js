@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Layout from '../components/Layout';
 import SpaceIcon from '../components/Atoms/SpaceIcon.js';
 import ImageSection from '../components/ImageSection';
-import { Tabs } from '@mantine/core';
+import { ScrollArea, Tabs } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 
 const fetchSpaces = () => fetch('https://graphql.contentful.com/content/v1/spaces/' + process.env.NEXT_PUBLIC_SPACE_ID, {
@@ -99,31 +99,22 @@ export default function Browse () {
     return (
       <div className='flex flex-col gap-4 justify-center items-center py-8 text-center'>
         <h3 className='header02 text-slate-600'>{props.data.categoryName}</h3>
-        <Carousel
-          withIndicators
-          slideSize="25%"
-          slideGap="lg"
-          breakpoints={[
-            { maxWidth: 'md', slideSize: '50%' },
-            { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
-          ]}
-          loop
-          align="start"
-        >
-          {props.data.linkedFrom.contentTypeAssetCollection.items.map((asset) => (
-            <AssetCard
-              key={asset.sys?.id}
-              data={asset}
-            />
-          ))}
-        </Carousel>
+          <div className='grid lg:grid-cols-4 grid-cols-2 gap-4'>
+            {props.data.linkedFrom.contentTypeAssetCollection.items.map((asset) => (
+              <AssetCard
+                key={asset.sys?.id}
+                data={asset}
+              />
+            ))}
+          </div>
+          
+        
       </div>
     )
   }
 
   function AssetCard(props) {
     return (
-      <Carousel.Slide>
         <Link href={"assets/" + props.data.sys.id}>
           <a>
             <div className=' bg-slate-100 border-slate-300 border-2 flex flex-col gap-2 aspect-square rounded-2xl transition hover:opacity-50'>
@@ -131,14 +122,13 @@ export default function Browse () {
             </div>
           </a>
         </Link>
-      </Carousel.Slide>
     )
   }
 
   return (
     <Layout>
       <ImageSection
-        height={400}
+        height={600}
         url='/images/generic-interior-design-background.jpg'
         preTitle='Catalog'
         title='Hundreds of 3d assets in one place'
