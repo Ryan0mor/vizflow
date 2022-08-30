@@ -1,34 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Esto es un Trabajo de fin de grado hecho con [Next.js](https://nextjs.org/) se basa en [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Primeros pasos
 
-First, run the development server:
+### 1. Correr la app
+
+Primero, correr el servidor de desarrollo en Node.js o Yarn:
 
 ```bash
 npm run dev
-# or
+# ó
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Abrirla en el navegador
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Abrir la url [http://localhost:3000](http://localhost:3000) con tu explorador para ver el resultado.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Deploy de producción.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+También puedes visitar la aplicación de producción actual en la url [http://vizflow.vercel.app](http://vizflow.vercel.app)
 
-## Learn More
+## Aviso
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Esto es una app creada con fines formativos, stuff will break!
