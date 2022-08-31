@@ -68,7 +68,7 @@ const Categories = () => {
     <Layout>
       <div className='container mx-auto flex flex-col gap-4 py-8'>
         <h1 className='header01'>{asset?.data?.category?.categoryName}</h1>
-        <div className='grid grid-cols-4 gap-4'>
+        <div className='grid lg:grid-cols-4 grid-cols-1 gap-4'>
           {asset?.data?.category?.linkedFrom?.contentTypeAssetCollection?.items?.map((asset) => (
             <AssetCard
               key={asset.sys?.id}
