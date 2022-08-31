@@ -98,17 +98,22 @@ export default function Browse () {
   function CategorySection(props) {
     return (
       <div className='flex flex-col gap-4 justify-center items-center py-8 text-center'>
-        <h3 className='header02 text-slate-600'>{props.data.categoryName}</h3>
-          <div className='grid lg:grid-cols-4 grid-cols-2 gap-4'>
-            {props.data.linkedFrom.contentTypeAssetCollection.items.map((asset) => (
-              <AssetCard
-                key={asset.sys?.id}
-                data={asset}
-              />
-            ))}
-          </div>
-          
         
+        <Link href={"/categories/" + props.data.sys.id}>
+          <a>
+            <div className='flex flex-row items-center justify-center text-slate-600 hover:text-teal-500'>
+              <h3 className='header02 '>{props.data.categoryName} </h3>
+            </div>
+          </a>
+        </Link>
+        <div className='grid lg:grid-cols-4 grid-cols-2 gap-4'>
+          {props.data.linkedFrom.contentTypeAssetCollection.items.map((asset) => (
+            <AssetCard
+              key={asset.sys?.id}
+              data={asset}
+            />
+          ))}
+        </div>
       </div>
     )
   }
