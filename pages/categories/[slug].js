@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Layout from '/components/Layout';
-import CategoriesBrowser from '../../components/CategoriesBrowser/CategoriesBrowser.js'
 
 const fetchAsset = (slug) => fetch('https://graphql.contentful.com/content/v1/spaces/' + process.env.NEXT_PUBLIC_SPACE_ID, {
   method: 'POST',
@@ -66,7 +65,7 @@ const Categories = () => {
 
   return (
     <Layout>
-      <div className='container mx-auto flex flex-col gap-4 py-8 px-4'>
+      <div className='container mx-auto flex flex-col gap-4 py-8 px-4 lg:px-0'>
         <h1 className='header01'>{asset?.data?.category?.categoryName}</h1>
         <div className='grid lg:grid-cols-4 grid-cols-1 gap-4'>
           {asset?.data?.category?.linkedFrom?.contentTypeAssetCollection?.items?.map((asset) => (
@@ -79,9 +78,7 @@ const Categories = () => {
         
       </div>
     </Layout>
-    
   )
-    
 }
 
 export default Categories;
