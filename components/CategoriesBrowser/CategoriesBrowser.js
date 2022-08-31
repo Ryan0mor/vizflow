@@ -111,7 +111,7 @@ export default function CategoriesBrowser () {
     <div>
       <div className='container mx-auto'>
         <Tabs value={activeTab} onTabChange={setActiveTab} unstyled >
-          <Tabs.List className='flex flex-row justify-center overflow-auto py-4 gap-2'>
+          <Tabs.List className='flex flex-row justify-left lg:justify-center overflow-auto py-4 gap-2'>
             {apiData?.data?.spaceCollection?.items?.map((tab) => (
               <TabListItem 
                 key={tab.sys.id}
