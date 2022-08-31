@@ -67,6 +67,7 @@ export default function ConfiguratorSample () {
 
   function File(props) {
     const ref = useRef()
+    const snap = useSnapshot(state)
     const { nodes, materials } = useGLTF('/watch-v1.glb')
     return (
       <group 

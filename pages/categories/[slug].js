@@ -47,7 +47,7 @@ const Categories = () => {
     return (
       <Link href={"/assets/" + props.data.sys.id}>
         <a>
-          <div className=' bg-slate-100 border-slate-300 border-2 flex flex-col gap-2 aspect-square rounded-2xl transition hover:opacity-50'>
+          <div className='bg-slate-100 border-slate-300 border-2 flex flex-col gap-2 aspect-square rounded-2xl transition hover:opacity-50'>
             <img className='rounded-2xl object-cover h-full' src={props.data.image.url} alt={props.data.image.title}/>
           </div>
         </a>
@@ -66,7 +66,7 @@ const Categories = () => {
 
   return (
     <Layout>
-      <div className='container mx-auto flex flex-col gap-4 py-8'>
+      <div className='container mx-auto flex flex-col gap-4 py-8 px-4'>
         <h1 className='header01'>{asset?.data?.category?.categoryName}</h1>
         <div className='grid lg:grid-cols-4 grid-cols-1 gap-4'>
           {asset?.data?.category?.linkedFrom?.contentTypeAssetCollection?.items?.map((asset) => (
