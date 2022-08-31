@@ -3,6 +3,8 @@ import { Canvas } from "@react-three/fiber";
 import {useGLTF, PresentationControls, Environment, ContactShadows, OrbitControls } from "@react-three/drei";
 import { useRef } from 'react'
 import { proxy, useSnapshot } from "valtio"
+//import { ErrorBoundary } from '@react-three/fiber/dist/declarations/src/core/utils';
+import ErrorBoundary from './ErrorBoundary';
 
 export default function ConfiguratorSample () {
 
@@ -80,12 +82,13 @@ export default function ConfiguratorSample () {
   function MaterialCard (props) {
     let snap = useSnapshot(state)
     let color = String(props?.mat.toLowerCase())
-    let mat = 'cursor-pointer transition-all aspect-square rounded-full matShadows w-full'
-    let currMat = 'cursor-pointer shadow-sm border-slate-200 transition-all aspect-square rounded-full matShadows w-full'
+    let mat = 'hover:scale-110 cursor-pointer transition-all aspect-square rounded-full matShadows w-full'
+    let currMat = 'scale-90 cursor-pointer shadow-sm border-slate-200 transition-all aspect-square rounded-full matShadows w-full'
     return (
-      <div className={color !== snap.mat01 ? mat : currMat} style={{backgroundColor: color}} onClick={() => {
+      <div className={color != snap.mat01 ? mat : currMat} style={{backgroundColor: color}} onClick={() => {
         state.mat01 = color
         state.mat02 = color
+        console.log(color + " color " + snap.mat01)
       }}/>    
     )
   }
@@ -95,7 +98,9 @@ export default function ConfiguratorSample () {
       <WindowTab/>
       <div className='flex flex-col lg:flex-row'>
         <div className='w-full aspect-square lg:w-4/5'>
-          <Model />
+          <ErrorBoundary>
+            <Model />
+          </ErrorBoundary>
         </div>
         <div className='flex flex-row lg:flex-col lg:w-1/5 justify-center p-1 gap-2'>
           {materials.map((props) =>  (

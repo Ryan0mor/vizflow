@@ -8,6 +8,7 @@ import NavbarConfigurator from '/components/Navbar/NavbarConfigurator.js'
 import { Canvas } from "@react-three/fiber"
 import {useGLTF, PresentationControls, Environment, ContactShadows, OrbitControls } from "@react-three/drei"
 import { proxy, useSnapshot } from "valtio"
+import ErrorBoundary from '../../components/ErrorBoundary'
 
 const fetchAsset = (slug) => fetch('https://graphql.contentful.com/content/v1/spaces/' + process.env.NEXT_PUBLIC_SPACE_ID, {
   method: 'POST',
@@ -244,7 +245,9 @@ export default function AssetEntryPage() {
         </ScrollArea>
 
         <div className='lg:col-span-6 row-span-3' >
-          <Model />
+          <ErrorBoundary>
+            <Model />
+          </ErrorBoundary>
         </div>
 
         {/*Material selector*/}
