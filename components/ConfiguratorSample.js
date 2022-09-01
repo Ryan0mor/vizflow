@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Canvas } from "@react-three/fiber";
 import {useGLTF, PresentationControls, Environment, ContactShadows, OrbitControls } from "@react-three/drei";
 import { useRef } from 'react'
@@ -6,7 +6,42 @@ import { proxy, useSnapshot } from "valtio"
 //import { ErrorBoundary } from '@react-three/fiber/dist/declarations/src/core/utils';
 import ErrorBoundary from './ErrorBoundary';
 
+const fetchAsset = (slug) => fetch('https://graphql.contentful.com/content/v1/spaces/' + process.env.NEXT_PUBLIC_SPACE_ID, {
+  method: 'POST',
+  headers: {
+    'Content-type': 'application/json',
+    Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_ACCESS_TOKEN
+  },
+  body: JSON.stringify({
+    query:
+    `
+    query getAsset($assetId: String!){
+        contentTypeAsset (id: $assetId) {
+          file{
+            url  
+          }
+          finishes
+        }
+      }
+    `,
+    variables: {"assetId": slug}
+  })
+})
+
 export default function ConfiguratorSample () {
+  const [asset, setAsset] = useState([])
+  const slug = '2ejYzZgIDd8KxZ6uXPLORo'
+
+  useEffect (() => {
+    if (typeof slug !== 'string') {
+      return
+    }
+    fetchAsset(slug)
+      .then((response) => response.json())
+      .then((receivedData) => setAsset(receivedData))
+  }, [slug])
+
+  console.log(asset?.data?.contentTypeAsset?.file?.url)
 
   const materials = [
     {
@@ -68,7 +103,7 @@ export default function ConfiguratorSample () {
   function File(props) {
     const ref = useRef()
     const snap = useSnapshot(state)
-    const { nodes, materials } = useGLTF('/watch-v1.glb')
+    const { nodes, materials } = useGLTF(String(asset?.data?.contentTypeAsset?.file?.url))
     return (
       <group 
         ref={ref} 
